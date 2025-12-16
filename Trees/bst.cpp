@@ -97,6 +97,40 @@ Node *searchIter(Node *root, int key)
     return NULL;
 }
 
+void insert(Node *root, int value)
+{
+    Node *prev = NULL;
+    while (root != NULL)
+    {
+        prev = root;
+        if (root->data == value)
+        {
+            printf("%d Cannot be inserted!\n", value);
+            return;
+        }
+        else if (value < root->data)
+        {
+            root = root->left;
+        }
+        else
+        {
+            root = root->right;
+        }
+    }
+
+    Node *newNode = createNode(value);
+    if (value < prev->data)
+    {
+        prev->left = newNode;
+    }
+    else
+    {
+        prev->right = newNode;
+    }
+
+    printf("%d Inserted Successfully on Parent: %d!\n", value, prev->data);
+}
+
 int main()
 {
     struct Node *p, *p1, *p2, *p3, *p4;
@@ -117,17 +151,26 @@ int main()
     printf("\n");
     postOrder(p);
     printf("\n");
-    printf("%d", isBST(p));
+    printf("%s", isBST(p) == 1 ? "Yes! It is a BST" : "No! its not a BST");
+    printf("\n\n");
+    insert(p, 1);
+    insert(p, 2);
+    insert(p, 15);
+    insert(p, 60);
+    insert(p, 8);
+    insert(p, 5);
+    insert(p, 3);
     printf("\n");
+    inOrder(p);
 
     // Node *searchElement = recSearch(p, 15);
-    Node *searchElement = searchIter(p, 5);
-    if (searchElement != NULL)
-    {
-        printf("Found: %d", searchElement->data);
-    }
-    else
-    {
-        printf("Element Not Found!");
-    }
+    // Node *searchElement = searchIter(p, 5);
+    // if (searchElement != NULL)
+    // {
+    //     printf("Found: %d", searchElement->data);
+    // }
+    // else
+    // {
+    //     printf("Element Not Found!");
+    // }
 }

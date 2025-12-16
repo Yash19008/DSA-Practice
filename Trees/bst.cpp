@@ -8,6 +8,7 @@ struct Node
     Node *left, *right;
 };
 
+// Creation of a Node
 Node *createNode(int x)
 {
     Node *newNode = new Node;
@@ -16,6 +17,7 @@ Node *createNode(int x)
     return newNode;
 }
 
+// In Order Traversal: L-Root-R
 void inOrder(Node *root)
 {
     if (root != NULL)
@@ -26,6 +28,7 @@ void inOrder(Node *root)
     }
 }
 
+// Pre Order Traversal: Root-L-R
 void preOrder(Node *root)
 {
     if (root != NULL)
@@ -36,6 +39,7 @@ void preOrder(Node *root)
     }
 }
 
+// Post Order Traversal: L-R-Root
 void postOrder(Node *root)
 {
     if (root != NULL)
@@ -46,6 +50,7 @@ void postOrder(Node *root)
     }
 }
 
+// Check whether a Tree is BST or not
 int isBST(Node *root)
 {
     static Node *prev = NULL;
@@ -62,6 +67,34 @@ int isBST(Node *root)
     {
         return 1;
     }
+}
+
+// Recursive Search
+Node *recSearch(Node *root, int key)
+{
+    if (root == NULL)
+        return NULL;
+    if (root->data == key)
+        return root;
+    else if (key > root->data)
+        return recSearch(root->right, key);
+    if (key < root->data)
+        return recSearch(root->left, key);
+}
+
+// Iterative Search
+Node *searchIter(Node *root, int key)
+{
+    while (root != NULL)
+    {
+        if (key == root->data)
+            return root;
+        else if (key < root->data)
+            root = root->left;
+        else
+            root = root->right;
+    }
+    return NULL;
 }
 
 int main()
@@ -85,4 +118,16 @@ int main()
     postOrder(p);
     printf("\n");
     printf("%d", isBST(p));
+    printf("\n");
+
+    // Node *searchElement = recSearch(p, 15);
+    Node *searchElement = searchIter(p, 5);
+    if (searchElement != NULL)
+    {
+        printf("Found: %d", searchElement->data);
+    }
+    else
+    {
+        printf("Element Not Found!");
+    }
 }

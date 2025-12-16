@@ -34,8 +34,8 @@ void preOrder(Node *root)
     if (root != NULL)
     {
         printf("%d ", root->data);
-        inOrder(root->left);
-        inOrder(root->right);
+        preOrder(root->left);
+        preOrder(root->right);
     }
 }
 
@@ -44,8 +44,8 @@ void postOrder(Node *root)
 {
     if (root != NULL)
     {
-        inOrder(root->left);
-        inOrder(root->right);
+        postOrder(root->left);
+        postOrder(root->right);
         printf("%d ", root->data);
     }
 }
@@ -78,7 +78,7 @@ Node *recSearch(Node *root, int key)
         return root;
     else if (key > root->data)
         return recSearch(root->right, key);
-    if (key < root->data)
+    else
         return recSearch(root->left, key);
 }
 
@@ -97,8 +97,12 @@ Node *searchIter(Node *root, int key)
     return NULL;
 }
 
+// Insertion of a Node
 void insert(Node *root, int value)
 {
+    if (root == NULL)
+        return;
+
     Node *prev = NULL;
     while (root != NULL)
     {
@@ -131,6 +135,58 @@ void insert(Node *root, int value)
     printf("%d Inserted Successfully on Parent: %d!\n", value, prev->data);
 }
 
+// To find the In Order Predecessor of a Node
+Node *inOrderPredecessor(Node *root)
+{
+    root = root->left;
+    while (root->right != NULL)
+        root = root->right;
+    return root;
+}
+
+// Deletion of a Node
+Node *deleteNode(Node *root, int value)
+{
+    if (root == NULL)
+        return NULL;
+
+    if (value < root->data)
+    {
+        root->left = deleteNode(root->left, value);
+    }
+    else if (value > root->data)
+    {
+        root->right = deleteNode(root->right, value);
+    }
+    else
+    {
+        if (root->left == NULL && root->right == NULL)
+        {
+            delete root;
+            return NULL;
+        }
+
+        if (root->left == NULL)
+        {
+            Node *temp = root->right;
+            delete root;
+            return temp;
+        }
+
+        if (root->right == NULL)
+        {
+            Node *temp = root->left;
+            delete root;
+            return temp;
+        }
+
+        Node *inPre = inOrderPredecessor(root);
+        root->data = inPre->data;
+        root->left = deleteNode(root->left, inPre->data);
+    }
+    return root;
+}
+
 int main()
 {
     struct Node *p, *p1, *p2, *p3, *p4;
@@ -152,6 +208,7 @@ int main()
     postOrder(p);
     printf("\n");
     printf("%s", isBST(p) == 1 ? "Yes! It is a BST" : "No! its not a BST");
+
     printf("\n\n");
     insert(p, 1);
     insert(p, 2);
@@ -161,6 +218,10 @@ int main()
     insert(p, 5);
     insert(p, 3);
     printf("\n");
+    inOrder(p);
+
+    printf("\n");
+    p = deleteNode(p, 8);
     inOrder(p);
 
     // Node *searchElement = recSearch(p, 15);

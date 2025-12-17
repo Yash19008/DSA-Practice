@@ -113,15 +113,15 @@ int main()
 {
     struct Node *p;
     p = createNode(8);
-    insert(p, 1);
-    insert(p, 3);
-    insert(p, 5);
-    insert(p, 6);
-    insert(p, 15);
-    insert(p, 2);
-    insert(p, 4);
-    insert(p, 0);
-    insert(p, 9);
-    insert(p, 10);
+    p = insert(p, 1);
+    p = insert(p, 3);
+    p = insert(p, 5);
+    p = insert(p, 6);
+    p = insert(p, 15);
+    p = insert(p, 2);
+    p = insert(p, 4);
+    p = insert(p, 0);
+    p = insert(p, 9);
+    p = insert(p, 10);
     inOrder(p);
 }

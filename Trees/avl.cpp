@@ -72,8 +72,55 @@ void inOrder(Node *root)
     }
 }
 
+Node *insert(Node *n, int key)
+{
+    if (n == NULL)
+        return createNode(key);
+
+    if (key < n->data)
+        n->left = insert(n->left, key);
+    else if (key > n->data)
+        n->right = insert(n->right, key);
+    else
+        return n;
+
+    int bf = getBalanceFactor(n);
+
+    // Case: LL
+    if (bf > 1 && key < n->left->data)
+        return rightRotate(n);
+    // Case: RR
+    if (bf < -1 && key > n->right->data)
+        return leftRotate(n);
+    // Case: LR
+    if (bf > 1 && key > n->left->data)
+    {
+        n->left = leftRotate(n->left);
+        return rightRotate(n);
+    }
+    // Case: RL
+    if (bf < -1 && key < n->right->data)
+    {
+        n->right = rightRotate(n->right);
+        return leftRotate(n);
+    }
+
+    return n;
+}
+
 int main()
 {
     struct Node *p, *p1, *p2, *p3, *p4;
     p = createNode(8);
+    insert(p, 1);
+    insert(p, 3);
+    insert(p, 5);
+    insert(p, 6);
+    insert(p, 15);
+    insert(p, 2);
+    insert(p, 4);
+    insert(p, 0);
+    insert(p, 9);
+    insert(p, 10);
+    inOrder(p);
 }

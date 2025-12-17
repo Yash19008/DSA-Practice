@@ -110,7 +110,7 @@ Node *insert(Node *n, int key)
 
 int main()
 {
-    struct Node *p, *p1, *p2, *p3, *p4;
+    struct Node *p;
     p = createNode(8);
     insert(p, 1);
     insert(p, 3);

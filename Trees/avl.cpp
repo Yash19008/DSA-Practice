@@ -84,6 +84,7 @@ Node *insert(Node *n, int key)
     else
         return n;
 
+    n->height = 1 + max(getHeight(n->left), getHeight(n->right));
     int bf = getBalanceFactor(n);
 
     // Case: LL

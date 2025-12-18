@@ -109,12 +109,12 @@ Node *insert(Node *n, int key)
     return n;
 }
 
-// To find the In Order Predecessor of a Node
-Node *inOrderPredecessor(Node *root)
+// To find the In Order Successor of a Node
+Node *inOrderSuccessor(Node *root)
 {
-    root = root->left;
-    while (root->right != NULL)
-        root = root->right;
+    root = root->right;
+    while (root->left != NULL)
+        root = root->left;
     return root;
 }
 
@@ -154,10 +154,13 @@ Node *deleteNode(Node *n, int key)
             return temp;
         }
 
-        Node *inPre = inOrderPredecessor(n);
-        n->data = inPre->data;
-        n->left = deleteNode(n->left, inPre->data);
+        Node *inSuc = inOrderSuccessor(n);
+        n->data = inSuc->data;
+        n->right = deleteNode(n->right, inSuc->data);
     }
+
+    if (n == NULL)
+        return n;
 
     n->height = 1 + max(getHeight(n->left), getHeight(n->right));
     int bf = getBalanceFactor(n);

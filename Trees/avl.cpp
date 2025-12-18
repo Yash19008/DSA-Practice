@@ -109,6 +109,84 @@ Node *insert(Node *n, int key)
     return n;
 }
 
+// To find the In Order Predecessor of a Node
+Node *inOrderPredecessor(Node *root)
+{
+    root = root->left;
+    while (root->right != NULL)
+        root = root->right;
+    return root;
+}
+
+// Delete a Node
+Node *deleteNode(Node *n, int key)
+{
+    if (n == NULL)
+        return NULL;
+
+    if (key < n->data)
+    {
+        n->left = deleteNode(n->left, key);
+    }
+    else if (key > n->data)
+    {
+        n->right = deleteNode(n->right, key);
+    }
+    else
+    {
+        if (n->left == NULL && n->right == NULL)
+        {
+            delete n;
+            return NULL;
+        }
+
+        if (n->left == NULL)
+        {
+            Node *temp = n->right;
+            delete n;
+            return temp;
+        }
+
+        if (n->right == NULL)
+        {
+            Node *temp = n->left;
+            delete n;
+            return temp;
+        }
+
+        Node *inPre = inOrderPredecessor(n);
+        n->data = inPre->data;
+        n->left = deleteNode(n->left, inPre->data);
+    }
+
+    n->height = 1 + max(getHeight(n->left), getHeight(n->right));
+    int bf = getBalanceFactor(n);
+
+    // LL case
+    if (bf > 1 && getBalanceFactor(n->left) >= 0)
+        return rightRotate(n);
+
+    // LR case
+    if (bf > 1 && getBalanceFactor(n->left) < 0)
+    {
+        n->left = leftRotate(n->left);
+        return rightRotate(n);
+    }
+
+    // RR case
+    if (bf < -1 && getBalanceFactor(n->right) <= 0)
+        return leftRotate(n);
+
+    // RL case
+    if (bf < -1 && getBalanceFactor(n->right) > 0)
+    {
+        n->right = rightRotate(n->right);
+        return leftRotate(n);
+    }
+
+    return n;
+}
+
 int main()
 {
     struct Node *p;
@@ -123,5 +201,13 @@ int main()
     p = insert(p, 0);
     p = insert(p, 9);
     p = insert(p, 10);
+
+    inOrder(p);
+    printf("\n");
+    p = deleteNode(p, 10);
+    p = deleteNode(p, 15);
+    p = deleteNode(p, 0);
+    p = deleteNode(p, 6);
+    p = deleteNode(p, 8);
     inOrder(p);
 }

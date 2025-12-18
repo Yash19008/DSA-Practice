@@ -190,6 +190,20 @@ Node *deleteNode(Node *n, int key)
     return n;
 }
 
+// Helper Function to Check
+bool isBalanced(Node *root)
+{
+    if (root == NULL)
+        return true;
+
+    int bf = getBalanceFactor(root);
+
+    if (abs(bf) > 1)
+        return false;
+
+    return isBalanced(root->left) && isBalanced(root->right);
+}
+
 int main()
 {
     struct Node *p;
@@ -213,4 +227,9 @@ int main()
     p = deleteNode(p, 6);
     p = deleteNode(p, 8);
     inOrder(p);
+
+    if (isBalanced(p))
+        printf("\nTree is balanced\n");
+    else
+        printf("\nTree is NOT balanced\n");
 }

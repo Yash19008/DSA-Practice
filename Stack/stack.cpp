@@ -64,14 +64,25 @@ int peek()
     }
 }
 
+void printStack()
+{
+    if (!isEmpty())
+    {
+        for (int i = top; i >= 0; i--)
+        {
+            printf("%d ", stack[i]);
+        }
+    }
+}
+
 int main()
 {
     push(10);
     push(50);
     push(5);
     push(6);
-    printf("%d\n", pop());
-    printf("%d\n", pop());
-    printf("%d\n", pop());
-    printf("%d", peek());
+    // printf("%d\n", pop());
+    // printf("%d\n", peek());
+
+    printStack();
 }

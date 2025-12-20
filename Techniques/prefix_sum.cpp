@@ -38,5 +38,5 @@ int main()
     int i = 2, j = 5;
     int sumOfRange = prefixSum(arr, size, i, j);
 
-    printf("%d", sumOfRange);
+    cout << sumOfRange << endl;
 }

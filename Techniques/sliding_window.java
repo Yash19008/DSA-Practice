@@ -12,7 +12,7 @@ class sliding_window {
             char c = s.charAt(right);
 
             while (list.contains(c)) {
-                list.remove(c);
+                list.remove(s.charAt(left));
                 left++;
             }
 

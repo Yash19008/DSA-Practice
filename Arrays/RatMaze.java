@@ -5,7 +5,6 @@ class RatMaze {
 
     static boolean isSafe(int maze[][], int x, int y, boolean visited[][]) {
         return x >= 0 && x < n && y >= 0 && y < n && maze[x][y] == 1 && !visited[x][y];
-
     }
 
     static void solve(int maze[][], int x, int y, boolean visited[][], String path) {

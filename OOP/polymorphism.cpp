@@ -78,6 +78,8 @@ int main()
     bo.withdraw(250.00, balance);
     cout << endl;
 
+
+    // Runtime Polymorphism
     SavingsAccount *acc1 = new SavingsAccount("Test", balance, 5.0);
     SavingsAccount *acc2 = new SavingsAccount("Test2", balance, 10.0);
 

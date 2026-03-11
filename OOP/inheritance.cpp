@@ -21,6 +21,6 @@ public:
 
 int main()
 {
-    Dog d;
-    d.eat();
+    Dog *d = new Dog;
+    d->eat();
 }

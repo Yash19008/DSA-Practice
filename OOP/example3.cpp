@@ -27,18 +27,26 @@ public:
 
 class B : public A
 {
+private:
+    string aadhar;
+
 public:
-    B(string n, string mob, string panN) : A(n, mob, panN) {}
+    B(string n, string mob, string panN, string aNo) : A(n, mob, panN), aadhar(aNo) {}
     void getMob()
     {
         cout << "Mobile: " << mobNo << endl;
+    }
+    void getAadhar()
+    {
+        cout << "Aadhar No.: " << aadhar << endl;
     }
 };
 
 int main()
 {
-    B b1("Yash", "7897897897", "ASDAD546A");
+    B b1("Yash", "7897897897", "ASDAD546A", "789789456456");
     b1.getName();
-    b1.getPan();
     b1.getMob();
+    b1.getPan();
+    b1.getAadhar();
 }

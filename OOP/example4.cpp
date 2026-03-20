@@ -168,7 +168,7 @@ int main()
 
     bank.showAllAccounts();
 
-    cout << "\nApplying Interest:\n";
+    cout << "\nApplying Interest: \n";
     bank.applyInterest();
 
     // Operator Overloading Demo

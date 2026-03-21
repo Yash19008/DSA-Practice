@@ -22,7 +22,7 @@ public:
 
     virtual void display() const
     {
-        cout << "Account No: " << accountNumber
+        cout << "Account Number: " << accountNumber
              << " | Balance: " << balance << endl;
     }
 

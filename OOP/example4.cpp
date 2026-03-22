@@ -172,9 +172,9 @@ int main()
     bank.applyInterest();
 
     // Operator Overloading Demo
-    Transaction t1(100), t2(200);
-    Transaction t3 = t1 + t2;
-    t3.show();
+    Transaction t1(100), t2(200), t3(500);
+    Transaction t4 = t1 + t2 + t3;
+    t4.show();
 
     return 0;
 }
